@@ -1,6 +1,7 @@
 package com.nelioalves.workshopmongo.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -42,8 +43,24 @@ public class UserService {
 		
 	}
 	
-	
-	
+	public User update(User obj) {
+	    Optional<User> newObjOptional = repo.findById(obj.getId());
+	    if (newObjOptional.isPresent()) {
+	        User newObj = newObjOptional.get();
+	        updateData(newObj, obj);
+	        return repo.save(newObj);
+	    } else {
+	        // Handle the case where the object with the given ID is not found
+	        return null; // or throw an exception
+	    }
+	}
+
+	private void updateData(User newObj, User obj) {
+	    newObj.setName(obj.getName());
+	    newObj.setEmail(obj.getEmail());
+	}
+
+
 	public User FromDTO(UserDTO objDto) {
 		return new User(objDto.getId(),objDto.getName(),objDto.getEmail());
 	}
