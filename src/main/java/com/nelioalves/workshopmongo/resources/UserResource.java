@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+import com.nelioalves.workshopmongo.domain.Post;
 import com.nelioalves.workshopmongo.domain.User;
 import com.nelioalves.workshopmongo.dto.UserDTO;
 import com.nelioalves.workshopmongo.services.UserService;
@@ -72,6 +73,14 @@ public ResponseEntity <Void>update(@RequestBody UserDTO objDto,@PathVariable Str
 	obj = service.update(obj);
 	
 	 return ResponseEntity.noContent().build();
+	}
+
+@GetMapping(value ="/{id}/posts")
+public ResponseEntity<List<Post>> FindByPosts(@PathVariable String id){
+    
+	User obj = service.findById(id);
+	
+	return ResponseEntity.ok().body(obj.getPosts());
 	}
  
 }
