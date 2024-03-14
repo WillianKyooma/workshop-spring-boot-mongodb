@@ -17,8 +17,6 @@ public class PostResource {
 @Autowired
 private PostService service;	
 	
-
-
 	
 @GetMapping(value ="/{id}")
 public ResponseEntity <Post>FindById(@PathVariable String id){
